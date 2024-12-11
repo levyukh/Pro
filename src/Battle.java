@@ -26,7 +26,7 @@ public class Battle {
             action=" "+action+" ";
         }
         System.out.println("--------------------------------------------------------------------------");
-        System.out.println("|         "+action+"         |");
+        System.out.println("|"+action+"|");
         System.out.println("--------------------------------------------------------------------------");
         System.out.println("Player Hp:"+player.getHp()+" Enemy Hp:"+enemy.getHp());
     }

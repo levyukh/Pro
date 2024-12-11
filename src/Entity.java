@@ -14,6 +14,11 @@ public class Entity {
     public int getAttack() {
         return attack;
     }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
     public void raiseAttack(int amount){
         attack+=amount;
     }
