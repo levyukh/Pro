@@ -39,20 +39,37 @@ public class Player extends Entity{
         this.x=x;
         this.y=y;
     }
+    private void unlockBitingEpic(){
+        options.remove(3);
+        attackList.add("Katana Biting Epic");
+    }
     public void die() throws IOException, InterruptedException {
-        setPosition(100,20);
-        super.setHp(3);
-        int choice=0;
+        setPosition(94,43);
 
-        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        System.out.println("--you died pick a buff--");
-        for (int i = 0; i < options.size(); i++) {
-            if(i==choice) System.out.println("["+ options.get(i) +"]");
-            else System.out.println(options.get(i));
+        super.setHp(3);
+        int choice=1;
+        char input='x';
+        while (input!=' ') {
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            System.out.println("--you died pick a buff--");
+            for (int i = 0; i < options.size(); i++) {
+                if (i == choice) System.out.println(i+1+": [" + options.get(i) + "]");
+                else System.out.println(i+1+": "+options.get(i));
+            }
+            input = Input.keyInput();
+            if (input == 'w' && choice > 0) choice--;
+            else if (input == 's' && choice < options.size() - 1) choice++;
         }
 
-        if(choice==1) super.raiseAttack(1);
-        else super.heal(5);
+       switch (choice){
+           case 0: super.raiseAttack(1);
+           break;
+           case 1: super.heal(10);
+           break;
+           case 2: healPower++;
+           break;
+           case 3: unlockBitingEpic();
+       }
     }
     private String basicAttack(Enemy enemy){
         enemy.damage(super.getAttack());

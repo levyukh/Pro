@@ -11,7 +11,7 @@ public class AnnoyingFreshman extends Enemy{
         }
         player.damage(super.getAttack());
         super.heal(1);
-        return "The annoying freshman attacks for "+super.getAttack()+"damage, heals for 1  using a Light Attack"+wasStunned;
+        return "The annoying freshman attacks for "+super.getAttack()+" damage, heals for 1  using a Light Attack"+wasStunned;
 
     }
     private String heavyAttack(Player player){
@@ -22,7 +22,7 @@ public class AnnoyingFreshman extends Enemy{
         }
         player.damage((int)(super.getAttack()*1.5));
         super.heal(2);
-        return "The annoying freshman attacks for "+(int)(super.getAttack()*1.5)+"damage, heals for 2 using a Heavy Attack"+wasStunned;
+        return "The annoying freshman attacks for "+(int)(super.getAttack()*1.5)+" damage, heals for 2 using a Heavy Attack"+wasStunned;
 
     }
     private String screech(Player player){
