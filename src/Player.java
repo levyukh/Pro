@@ -86,11 +86,13 @@ public class Player extends Entity{
     }
     private String healAction(){
         int heal=(int)(Math.random()*3)+healPower;
+        canUseHeavy=true;
         super.heal(heal);
         return "you healed for "+heal+" hp";
     }
     private String katanaBitingEpic(Enemy enemy){
         int damage=(int)(Math.random()*100)+1;
+        canUseHeavy=true;
         enemy.damage(damage);
         return "YOU USE KATANA BITING EPIC!!!"+"you do "+damage+"damage";
     }
