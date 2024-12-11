@@ -1,11 +1,14 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
 public class Player extends Entity{
     private int x;
     private int y;
+    private int healPower=1;
+    private ArrayList<String> options= new ArrayList<>(Arrays.asList("1 More Attack", "10 More Health", "Stronger Healing", "Unlock Katana biting Epic"));
     private boolean stun=false;
     private ArrayList<String>attackList= new ArrayList<>();
     private boolean canUseHeavy=true;
@@ -38,12 +41,16 @@ public class Player extends Entity{
     }
     public void die() throws IOException, InterruptedException {
         setPosition(100,20);
-        super.heal(3);
+        super.setHp(3);
+        int choice=0;
+
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
         System.out.println("--you died pick a buff--");
-        System.out.println("1: 1 more attack");
-        System.out.println("2: 5 more health");
-        int choice=new Scanner(System.in).nextInt();
+        for (int i = 0; i < options.size(); i++) {
+            if(i==choice) System.out.println("["+ options.get(i) +"]");
+            else System.out.println(options.get(i));
+        }
+
         if(choice==1) super.raiseAttack(1);
         else super.heal(5);
     }
@@ -61,9 +68,14 @@ public class Player extends Entity{
         return "You fail the heavy attack";
     }
     private String healAction(){
-        int heal=(int)(Math.random()*3)+1;
+        int heal=(int)(Math.random()*3)+healPower;
         super.heal(heal);
         return "you healed for "+heal+" hp";
+    }
+    private String katanaBitingEpic(Enemy enemy){
+        int damage=(int)(Math.random()*100)+1;
+        enemy.damage(damage);
+        return "YOU USE KATANA BITING EPIC!!!"+"you do "+damage+"damage";
     }
     public String attack(Battle battle,int decision){
         if(!stun) {
@@ -71,6 +83,8 @@ public class Player extends Entity{
                 case 1 -> basicAttack(battle.getEnemy());
                 case 2 -> heavyAttack(battle.getEnemy());
                 case 3 -> healAction();
+                case 4 -> katanaBitingEpic(battle.getEnemy());
+
                 default -> "You don't attack";
             };
         }else{
